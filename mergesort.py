@@ -13,35 +13,29 @@ def mergeSort(arr):
 		return arr
 
 	mid = array_len // 2
-	
-	if (array_len % 2) == 0:
-		group1 = mergeSort(arr[:int(array_len/2)])
-		group2 = mergeSort(arr[int(array_len/2):])
-	else:
-		arrendondar = math.ceil(array_len/2)
-		group1 = mergeSort(arr[:int(array_len/2)])
-		group2 = mergeSort(arr[int(arrendondar)-1:])
+	left = mergeSort(arr[:mid])
+	right = mergeSort(arr[mid:])
 
 	count = 0
-	while len(group1+group2) > 0:
-		if len(group1) == 0:
+	while len(left+right) > 0:
+		if len(left) == 0:
 			arr = arr[:count]
-			arr = arr+group2
-			group2.clear()
+			arr = arr+right
+			right.clear()
 			continue
 		
-		if len(group2) == 0:
+		if len(right) == 0:
 			arr = arr[:count]
-			arr = arr+group1
-			group1.clear()
+			arr = arr+left
+			left.clear()
 			continue
 
-		if group1[0] >= group2[0]:
-			arr[count] = group2[0]
-			del(group2[0])
+		if left[0] >= right[0]:
+			arr[count] = right[0]
+			del(right[0])
 		else:
-			arr[count] = group1[0]
-			del(group1[0])
+			arr[count] = left[0]
+			del(left[0])
 		count = count + 1
 	return arr
 
